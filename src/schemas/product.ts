@@ -18,6 +18,7 @@ export const productResponseSchema = {
     id: { type: 'string', format: 'uuid' },
     name: { type: 'string' },
     price: { type: 'number' },
+    cover: { type: 'string', format: 'uri' },
     images: {
       type: 'array',
       items: { type: 'string' },

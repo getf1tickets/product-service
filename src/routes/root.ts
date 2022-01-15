@@ -61,6 +61,7 @@ const root: FastifyPluginAsync = async (fastify): Promise<void> => {
         name: product.name,
         price: product.price,
         description: product.description,
+        cover: product.images[0]?.url,
         images: product.images?.map((image) => image.url) || [],
         tags: product.tags?.map((tag) => tag.tag) || [],
       };
