@@ -1,7 +1,9 @@
 import { FastifyPluginAsync } from 'fastify';
 import { to } from 'await-to-js';
 import { Product, ProductImage } from '@getf1tickets/sdk';
-import { productsResponseSchema, productResponseSchema, productCreationSchema } from '@/schemas/product';
+import {
+  productsResponseSchema, productResponseSchema, productCreationSchema, productUpdateSchema,
+} from '@/schemas/product';
 
 const root: FastifyPluginAsync = async (fastify): Promise<void> => {
   fastify.route({
@@ -97,6 +99,29 @@ const root: FastifyPluginAsync = async (fastify): Promise<void> => {
         images: product.images?.map((image) => image.url) || [],
         tags: product.tags?.map((tag) => tag.tag) || [],
       };
+    },
+  });
+
+  fastify.route({
+    method: 'PUT',
+    url: '/:id',
+    schema: {
+      body: productUpdateSchema,
+    },
+    preHandler: [
+      fastify.authentication.authorize(),
+      fastify.middlewares.useUser({
+        useToken: true,
+        shouldBeAdmin: true,
+      }),
+      fastify.middlewares.useProduct({ includeImages: true, includeTags: true }),
+    ],
+    handler: async (request, reply) => {
+      const { product } = request;
+
+      await fastify.to500(product.update(request.body));
+
+      reply.status(204);
     },
   });
 

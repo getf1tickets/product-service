@@ -26,6 +26,20 @@ export const productCreationSchema = {
   },
 };
 
+export const productUpdateSchema = {
+  type: 'object',
+  additionalProperties: false,
+  properties: {
+    name: { type: 'string' },
+    description: { type: 'string' },
+    price: { type: 'number', minimum: 0 },
+    images: {
+      type: 'array',
+      items: { type: 'string', format: 'uri' },
+    },
+  },
+};
+
 export const productResponseSchema = {
   type: 'object',
   properties: {
