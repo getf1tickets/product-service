@@ -8,10 +8,10 @@
     "start": "fastify start -l info -a 0.0.0.0 -p 3000 dist/app.js",
     "build": "tsc",
     "dev": "tsc && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"tsc -w\" \"fastify start --ignore-watch=.ts$ -w -l trace -P dist/app.js\"",
-    "local:install-sdk": "yalc add @getf1tickets/sdk@1.0.0"
+    "local:install-sdk": "yalc add @getf1tickets/sdk@1.0.3"
   },
   "dependencies": {
-    "@getf1tickets/sdk": "^1.0.2",
+    "@getf1tickets/sdk": "file:.yalc/@getf1tickets/sdk",
     "ajv-formats": "^2.1.1",
     "amqplib": "^0.8.0",
     "await-to-js": "^3.0.0",

@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/prefer-default-export
 export const productsResponseSchema = {
   type: 'array',
   items: {
@@ -8,6 +7,21 @@ export const productsResponseSchema = {
       name: { type: 'string' },
       price: { type: 'number' },
       cover: { type: 'string', format: 'uri' },
+    },
+  },
+};
+
+export const productCreationSchema = {
+  type: 'object',
+  additionalProperties: false,
+  required: ['name', 'description', 'price', 'images'],
+  properties: {
+    name: { type: 'string' },
+    description: { type: 'string' },
+    price: { type: 'number', minimum: 0 },
+    images: {
+      type: 'array',
+      items: { type: 'string', format: 'uri' },
     },
   },
 };
